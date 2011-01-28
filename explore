@@ -1,0 +1,70 @@
+#!/usr/bin/php
+<?php
+
+require_once('Node.php');
+require_once('Maze.php');
+require_once('SearchAbstract.php');
+require_once('Depth.php');
+require_once('Breadth.php');
+
+$maze = new Maze();
+
+$max = 30000;
+for($i=0; $i < $max; $i++) {
+  if($i == 0) {
+    $maze->addNode(new Node('root'));
+    $availableParents = array('root' => true);
+    $endInteger = rand(ceil($max/2), $max-1);
+    continue;
+  }
+
+  if($i == $endInteger) {
+    $end = array('theend');
+  } else {
+    $end = array();
+  }
+
+  $maze->addNode(new Node($i, array_rand($availableParents), $end));
+  $availableParents[$i] = true;
+
+
+
+}
+
+print "Bredth-First:\r\n";
+
+$start = microtime(true);
+$explore = new Breadth($maze);
+$result = $explore->exploreMaze();
+$string = null;
+$end = microtime(true);
+
+foreach($result as $item)
+{
+  $string .= $item . ", ";
+}
+
+print trim($string, ", ");
+
+print "\r\n";
+
+print "Total Time: " . round(($end - $start), 4) . "\r\n\r\n";
+
+print "Depth-First:\r\n";
+
+$start = microtime(true);
+$explore = new Depth($maze);
+$result = $explore->exploreMaze();
+$string = null;
+$end = microtime(true);
+
+foreach($result as $item)
+{
+  $string .= $item . ", ";
+}
+
+print trim($string, ", ");
+
+print "\r\n";
+
+print "Total Time: " . round(($end - $start), 4) . "\r\n";
