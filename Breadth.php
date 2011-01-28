@@ -11,7 +11,7 @@ class Breadth extends SearchAbstract
     $endNode = null;
     $endChild = null;
 
-    while(is_null($endNode))
+    while(is_null($endNode) && !empty($childrenToExplore))
     {
       $newChildren = array();
       foreach($childrenToExplore as $child)
@@ -27,6 +27,10 @@ class Breadth extends SearchAbstract
       }
 
       $childrenToExplore = $newChildren;
+    }
+
+    if(is_null($endNode)) {
+      throw new Exception('No end node was located');
     }
 
     return $this->getPath($endNode, $endChild);
