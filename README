@@ -1,0 +1,9 @@
+This application is a sample implementation of two algorithms in PHP: depth-first
+and breadth-first.
+
+Each of these searches a tree for a node that doesn't actually exist in the tree;
+this signifies the exit point of the maze. At that point, they retrace their
+path and return a string of the steps necessary to reach the end.
+
+By default the configuration is such that the maze is generated autmatically.
+However, the maze could be provided by the user to test.
